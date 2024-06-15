@@ -10,6 +10,12 @@ div {
   text-align: left;
   border-bottom: 1px solid gray;
 }
+.modal{
+  background-color: beige;
+  padding-left: 20px;
+  text-align: left;
+  border-bottom: 1px solid gray;
+}
 .black-nav{
   display: flex;
   background-color: black;
