@@ -8,9 +8,7 @@ function App() {
 
   let post = '강남 초밥 맛집';
   let [글제목, 글제목변경] = useState(['남자 코트 추천', '강남 맛집 추천', '코드추천 강남']);
-  let [따봉, 따봉변경] = useState(0);
-  let [따봉넘버, 따봉넘버변경] = useState([54,2,3]);
-  let [변경테스트, set변경테스트] = useState(['라모스','양의지','김민재']);
+  let [따봉넘버, 따봉넘버변경] = useState([0,0,0]);
   // a는 보관된 이름
   // b는 변경을 도와줌
 
@@ -37,16 +35,6 @@ function App() {
         글제목변경(copy);
        }}>글수정</button>
 
-      {/* <div className='list'>
-        <h4>{글제목[0]} <span onClick={()=>{따봉변경(따봉+1)}}>❤</span> {따봉} </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className='list'>
-        <h4>{글제목[1]}</h4>
-        <p>2월 17일 발행</p>
-      </div> */}
-
-
        {
         글제목.map(function(a, i){
           return (
@@ -56,51 +44,39 @@ function App() {
             }} >{a}
             </h4>
             <span onClick={()=>{
-              set변경테스트(변경테스트[i]='조수행')
+              let copy = [...따봉넘버];
+              copy[i]=copy[i]+1;
+              따봉넘버변경(copy);
             }}>
-            {변경테스트[i]}
-            </span>
-            <span onClick={()=>{따봉넘버변경(따봉넘버[i]+1)}}>❤</span> {따봉넘버[i]}
-            <span onClick={()=>{따봉변경(따봉+1)}}>❤</span> {따봉}
+            ❤
+            </span>{따봉넘버[i]}
             <p>2월 17일 발행</p>
           </div>
           )        
         })
        }
-       
-      {/* {
-       따봉.map(function(b, i){
-         return(
-         <span onClick={()=>{
-           따봉변경(b)
-         }}>❤{b}</span>
-               )
-       })
-       }  */}
-
        {
-         modal == true ? <Modal/> : null
+         modal == true ? <Modal color={'skyblue'} 글제목={글제목}/> : null
        }
        <ANT/>
-
       <h4 style={{ color: 'red', fontSize: '9px' }}>110-572-321917</h4>
       <h4>{post}</h4>
     </div>
   );
 }
 
-/*
-let Modal = () => {
-  return
-}
-  */
-
-function Modal(){
+function Modal(props){
   return (
-    <div className='modal'>
-    <h4>제목</h4>
+    <div className='modal' style={{background : props.color}}>
+    <h4>{props.글제목[0]}</h4>
     <p>날짜</p>
     <p>상세내용</p>
+    <button onClick={()=>{
+      props.글제목[0]="여자 코트 추천"
+      // let copy = [...props.글제목];
+      // copy[0] = "여자코트 추천"
+      // 글제목변경(copy);
+    }}>글수정</button>
     </div>
   )
 }
