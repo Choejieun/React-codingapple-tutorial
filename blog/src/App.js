@@ -12,7 +12,7 @@ function App() {
   // a는 보관된 이름
   // b는 변경을 도와줌
 
-  let [modal, setModal] = useState(false);
+  let [modal, setModal] = useState([false,false,false]);
   //모달용, 변경어는 set~로 하는 게 기본
   //형식은자유, 모달창 상태 표현만 가능 가능하게
 
@@ -40,7 +40,8 @@ function App() {
           return (
             <div className='list'>
             <h4 onClick={()=>{
-              modal == false ? setModal(true) : setModal(false)
+              modal[i] == false ? setModal(true) : setModal(false)
+              // setModal(true)
             }} >{a}
             </h4>
             <span onClick={()=>{
@@ -56,7 +57,7 @@ function App() {
         })
        }
        {
-         modal == true ? <Modal color={'skyblue'} 글제목={글제목}/> : null
+         modal == true ? <Modal modal={modal} color={'skyblue'} 글제목={글제목} 글제목변경={글제목변경}/> : null
        }
        <ANT/>
       <h4 style={{ color: 'red', fontSize: '9px' }}>110-572-321917</h4>
@@ -68,14 +69,14 @@ function App() {
 function Modal(props){
   return (
     <div className='modal' style={{background : props.color}}>
+      <span>{props.modal[0]}</span>
     <h4>{props.글제목[0]}</h4>
     <p>날짜</p>
     <p>상세내용</p>
     <button onClick={()=>{
-      props.글제목[0]="여자 코트 추천"
-      // let copy = [...props.글제목];
-      // copy[0] = "여자코트 추천"
-      // 글제목변경(copy);
+      let copy = [...props.글제목];
+      copy[0] = "여자코트 추천"
+      props.글제목변경(copy);
     }}>글수정</button>
     </div>
   )
