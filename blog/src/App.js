@@ -61,12 +61,10 @@ function App() {
         console.log(입력값);}}/>
 
         <button onClick={()=>{
-          // 글제목 = [...글제목, 입력값];
-          생성 == false ? set생성(true) : set생성(false);
+          let copy = [...글제목];
+          copy = [...글제목, 입력값];
+          글제목변경(copy);
           }}>생성</button>
-       {
-        생성 == true ? 글제목.concat(0) : null
-       }
        {
          modal == true ? <Modal title={title} color={'skyblue'} 글제목={글제목} 글제목변경={글제목변경}/> : null
        }
