@@ -31,19 +31,20 @@ function App() {
         글제목변경(copy);
        }}>글수정</button>
 
+       
        {
         글제목.map(function(a, i){
           return (
             <div className='list'>
             <h4 onClick={()=>{
-              setTitle(i)
-              modal == false ? setModal(true) : setModal(false)
-              // setModal(true)
-            }} >{a}
+              setTitle(i) 
+              setModal(true)
+            }} >
+            {a}
             </h4>
             <span onClick={(e)=>{ 
               e.stopPropagationtopPr
-              let copy = [...따봉넘버];
+              let copy = [...따봉넘버, 0];
               copy[i]=copy[i]+1;
               따봉넘버변경(copy);
             }}>
@@ -57,13 +58,15 @@ function App() {
 
        <input onChange={(e)=>{ 
         입력값변경(e.target.value)
-        console.log(입력값)
-        ;}}/>
+        console.log(입력값);}}/>
+
         <button onClick={()=>{
-          글제목 = [...글제목, 입력값];
-          console.log(글제목);
+          // 글제목 = [...글제목, 입력값];
           생성 == false ? set생성(true) : set생성(false);
           }}>생성</button>
+       {
+        생성 == true ? 글제목.concat(0) : null
+       }
        {
          modal == true ? <Modal title={title} color={'skyblue'} 글제목={글제목} 글제목변경={글제목변경}/> : null
        }
