@@ -13,7 +13,6 @@ function App() {
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0); //모달용 변수
   let [입력값, 입력값변경] = useState('');
-  let [생성, set생성] = useState(false);
   return (
     <div className="App">
       <div className="black-nav">
@@ -52,12 +51,7 @@ function App() {
             </span>{따봉넘버[i]}
             <p>2월 17일 발행</p>
             <button onClick={()=>{
-              const a3 = [...글제목];
-              const i = 0; // 예를 들어, 클릭한 항목의 인덱스 등을 할당
-              const b3 = a3.filter((n) => {  return n != i;  });
-              console.log(b3);
-              console.log(i);
-              글제목변경(b3);
+                글제목변경(글제목.filter((el, index)=> index != i));
             }}>삭제</button>
           </div>
           )         
