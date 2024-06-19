@@ -34,7 +34,7 @@ function App() {
        {
         글제목.map(function(a, i){
           return (
-            <div className='list'>
+            <div className='list' key={i}>
             <h4 onClick={()=>{
               setTitle(i) 
               setModal(true)
@@ -65,6 +65,7 @@ function App() {
         <button onClick={()=>{
           let copy = [...글제목];
           copy = [...글제목, 입력값];
+          // copy.unshift(입력값);
           글제목변경(copy);
           }}>생성</button>
        {
