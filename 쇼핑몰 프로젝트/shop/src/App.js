@@ -23,27 +23,57 @@ function App() {
 
       <div className='main-bg' style={{backgroundImage : 'url('+bg+')'}}></div>
       <div>상품 리스트</div>
+      <ShoesList />
+      {/* <Container>
+      <Row>
+        <Col xs>
+        <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%" />
+        <h4>{shoes[0].title}</h4>
+        <p>상품정보</p>
+        <p>원</p>
+        </Col>
+        <Col xs>
+        <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%" />
+            <h4>{shoes[1].title}</h4>
+            <p>상품정보</p>
+        </Col>
+        <Col xs>
+        <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%" />
+            <h4>{shoes[2].title}</h4>
+            <p>상품정보</p>
+          </Col>
+      </Row>
+      </Container> */}
+    </div>
+  );
+}
+
+function ShoesList(){
+    return (
+      <div>
       <Container>
       <Row>
         <Col xs>
         <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%" />
         <h4>{shoes[0].title}</h4>
         <p>상품정보</p>
+        <p>원</p>
         </Col>
-        <Col xs={{ order: 12 }}>
+        <Col xs>
         <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%" />
             <h4>{shoes[1].title}</h4>
             <p>상품정보</p>
         </Col>
-        <Col xs={{ order: 1 }}>
+        <Col xs>
         <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%" />
             <h4>{shoes[2].title}</h4>
             <p>상품정보</p>
           </Col>
       </Row>
       </Container>
-    </div>
-  );
+      </div>
+    )
+
 }
 
 export default App;
