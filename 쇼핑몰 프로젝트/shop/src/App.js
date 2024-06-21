@@ -23,7 +23,7 @@ function App() {
 
       <div className='main-bg' style={{backgroundImage : 'url('+bg+')'}}></div>
       <div>상품 리스트</div>
-      <ShoesList />
+      <ShoesList shoes={shoes} />
       {/* <Container>
       <Row>
         <Col xs>
@@ -48,30 +48,35 @@ function App() {
   );
 }
 
-function ShoesList(){
+function ShoesList(props){
     return (
+      props.shoes.map(function (a, i) {
       <div>
+        {props.a}
+        {i}
+        {console.log(a)}
       <Container>
       <Row>
         <Col xs>
         <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%" />
-        <h4>{shoes[0].title}</h4>
+        {/* <h4>{props.shoes[0].title}</h4> */}
         <p>상품정보</p>
         <p>원</p>
         </Col>
         <Col xs>
         <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%" />
-            <h4>{shoes[1].title}</h4>
+            <h4>{props.shoes[1].title}</h4>
             <p>상품정보</p>
         </Col>
         <Col xs>
         <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%" />
-            <h4>{shoes[2].title}</h4>
+            <h4>{props.shoes[2].title}</h4>
             <p>상품정보</p>
           </Col>
       </Row>
       </Container>
       </div>
+      })
     )
 
 }
