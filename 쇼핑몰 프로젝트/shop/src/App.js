@@ -4,12 +4,12 @@ import './App.css';
 import { Navbar, Container, Nav, Row, Col  } from 'react-bootstrap';
 import { useState } from 'react';
 import data from './data.js';
-import bg from './img/bg.jpg';
 import Detail from './detail.js';
 import ShoesList from './shoesList.js';
 import { Routes, Route, Link, useNavigate , Outlet } from 'react-router-dom';
 
 function App() {
+  let [shoes, setShoes] = useState(data)
   let navigate = useNavigate()
   return (
     <div className="App">
@@ -24,8 +24,9 @@ function App() {
         </Container>
       </Navbar>
       <Routes>
-      <Route path='/' element={<div>{<ShoesList/>}</div>}/> 
-      <Route path='/detail' element={<div>{<Detail/>}</div>}/> 
+      <Route path='/' element={<ShoesList shoes={shoes} setShoes={setShoes} />}/> 
+      <Route path='/detail/:id' element={<Detail shoes={shoes}/>}/>
+
       <Route path="/about" element={ <About/> } >  
           <Route path="member" element={ <div>멤버들</div> } />
           <Route path="location" element={ <div>회사위치</div> } />
