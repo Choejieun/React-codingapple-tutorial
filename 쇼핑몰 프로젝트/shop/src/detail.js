@@ -6,21 +6,28 @@ import styled from "styled-components";
 function Detail(props){
 
   let [timeSet, setTimeSet] = useState(true);
-  // useEffect(()=>{
-  //   setTimeout(() => {setTimeSet(false) }, 2000);},[])
+  let [입력값, 입력값변경] = useState(0);
+  let [입력값2, 입력값변경2] = useState(null);
 
-    useEffect(()=>{
-      let a = setTimeout(() => {setTimeSet(false) }, 2000)
-      return ()=>{
-        clearTimeout(a)
-      }
-    }, [])
+  //타이머용
+  useEffect(()=>{
+    let a = setTimeout(() => {setTimeSet(false) }, 2000)
+    return ()=>{clearTimeout(a)}}, [])
+    // Number.isInteger(intValue) && 입력값 !== '' ? null : alert("ㅎㅇ");
+    
+  //수량입력창용
+  useEffect(()=>{
+    const intValue = parseInt(입력값);
+    console.log('입력값'+입력값)
+    console.log('문자열변환값'+Number.isInteger(intValue))
+    Number.isInteger(intValue) == true ? null : alert("숫자를 입력해주세요")
+    },[입력값])
 
   let {id} = useParams();
   let shoe = props.shoes.find(a => id == a.id);
   return(
     <>
-      {shoe ? <ShowDetail id={id} a={shoe} timeSet={timeSet} /> : <NoneDetail/>}
+      {shoe ? <ShowDetail 입력값={입력값} 입력값변경={입력값변경} id={id} a={shoe} timeSet={timeSet} /> : <NoneDetail/>}
     </>
     )
 }
@@ -34,7 +41,13 @@ function ShowDetail(props){
             <img src={props.a.img} width="100%" />
           </div>
           <div className="col-md-6">
-            <h4 className="pt-5">{props.a.title}</h4>
+            
+            <input placeholder="수량을입력해주세요"
+              onChange={(e)=>{props.입력값변경(e.target.value)
+              console.log('입력값입니다.'+props.입력값);}}
+            />
+
+            <h4 className="pt-3">{props.a.title}</h4>
             <p>{props.a.content}</p>
             <p>{props.a.price}원</p>
             <button className="btn btn-danger">주문하기</button> 
