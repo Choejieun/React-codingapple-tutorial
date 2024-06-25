@@ -6,11 +6,16 @@ import styled from "styled-components";
 function Detail(props){
 
   let [timeSet, setTimeSet] = useState(true);
-  useEffect(()=>{
-    setTimeout(() => {
-      setTimeSet(false)
-    }, 2000);
-  })
+  // useEffect(()=>{
+  //   setTimeout(() => {setTimeSet(false) }, 2000);},[])
+
+    useEffect(()=>{
+      let a = setTimeout(() => {setTimeSet(false) }, 2000)
+      return ()=>{
+        clearTimeout(a)
+      }
+    }, [])
+
   let {id} = useParams();
   let shoe = props.shoes.find(a => id == a.id);
   return(
