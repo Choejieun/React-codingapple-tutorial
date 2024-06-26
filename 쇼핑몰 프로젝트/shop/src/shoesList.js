@@ -15,8 +15,8 @@ function ShoesList(props){
     .then((Re)=>{
     setMoreProduct(Re.data);})
     .catch(()=>{console.log('실패함 ㅅㄱ')})
-    return ()=>{setMoreProduct([])}},[showMoreListOn]
-)
+    // return ()=>{setMoreProduct([])}
+    },[showMoreListOn])
 
   return (
       <div key='list'>
