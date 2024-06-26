@@ -7,7 +7,6 @@ function Detail(props){
 
   let [timeSet, setTimeSet] = useState(true);
   let [입력값, 입력값변경] = useState(0);
-  let [입력값2, 입력값변경2] = useState(null);
 
   //타이머용
   useEffect(()=>{
@@ -18,8 +17,6 @@ function Detail(props){
   //수량입력창용
   useEffect(()=>{
     const intValue = parseInt(입력값);
-    console.log('입력값'+입력값)
-    console.log('문자열변환값'+Number.isInteger(intValue))
     Number.isInteger(intValue) == true ? null : alert("숫자를 입력해주세요")
     },[입력값])
 
