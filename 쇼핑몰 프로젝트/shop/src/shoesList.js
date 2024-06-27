@@ -10,26 +10,24 @@ function ShoesList(props){
   let [showMoreListOn, setShowMoreListOn] = useState(false);
   let [moreProduct, setMoreProduct] = useState([]);
   let [moreBtn, setMoreBtn] = useState(0);
+  let [modalOpen, setModalOpen] = useState(false);
 
   useEffect(()=>{
-    // axios.get('https://codingapple1.github.io/shop/data2.json')
+    console.log(modalOpen)
     Promise.all([ axios.get('https://codingapple1.github.io/shop/data2.json'), axios.get('https://codingapple1.github.io/shop/data3.json')])
     .then((Re)=>{
-      // Re.map(function(a, i){
-      //   console.log(i)
-      //   let copy = [...moreProduct]
-      //   copy = [...copy, ...Re[i].data]
-      //   // copy = [...copy, ...Re[1].data]
-      //   setMoreProduct(copy)
-      //   console.log(copy)
-      // })
+      console.log('ga')
+      setModalOpen(false)
+      console.log(modalOpen)
       let copy = [...moreProduct]
       copy = [...copy, ...Re[0].data]
       copy = [...copy, ...Re[1].data]
       setMoreProduct(copy)
       console.log(copy)
     })
-    .catch(()=>{console.log('실패함 ㅅㄱ')})
+    .catch(()=>{
+      console.log('실패함')
+      setModalOpen(false);})
     return ()=>{setMoreProduct([])}
     },[showMoreListOn])
 
@@ -55,18 +53,17 @@ function ShoesList(props){
         );
       })}
       </Row>
-      {showMoreListOn ? <ShowMoreList moreProduct={moreProduct} moreBtn={moreBtn}/> : null }
+      {modalOpen == true ? <Loading/> : null}
+      {showMoreListOn ? <ShowMoreList setModalOpen={setModalOpen} moreProduct={moreProduct} moreBtn={moreBtn} setMoreBtn={setMoreBtn}/> : null }
       </Container>
-      {/* <button onClick={()=>{
-        showMoreListOn ? setShowMoreListOn(false) : setShowMoreListOn(true), setMoreBtn(moreBtn+1), moreProduct.splice(0)
-      }}>버튼</button> */}
           <button onClick={()=>{
           if (moreBtn < 3) {
+            setModalOpen(true)
             setShowMoreListOn(true);
             setMoreBtn(moreBtn + 1);
           } else {
+            setModalOpen(false)
             moreProduct.splice(0)
-            // setShowMoreListOn(false);
           }
               }}>버튼</button>
       </div>
@@ -74,10 +71,26 @@ function ShoesList(props){
 
 }
 
+function Loading(props){
+  return(
+    <>
+☆☆☆☆☆☆로딩중입니다.☆☆☆☆☆☆
+    </>
+  )
+}
+
 function ShowMoreList(props){
   let navigate = useNavigate();
   let items = props.moreProduct.slice(0, 3)
   let items2 = props.moreProduct.slice(3, 6)
+
+  useEffect(() => {
+    if (props.moreBtn > 2) {
+      props.setMoreBtn(2);
+      alert('상품이 더 없습니다');
+    }
+  }, [props.moreBtn]);
+
   return(
     <>
     <Row>
@@ -90,8 +103,9 @@ function ShowMoreList(props){
         </Col>
       ))}
     </Row>
-    {props.moreBtn <= 2 ? null : 
+    {props.moreBtn <= 1 ? null : 
       <Row>
+      {props.setModalOpen(false)}
       {items2.map((a, i) => (
         <Col key={a.id} onClick={() => { navigate('/detail/' + a.id) }} xs>
           <img src={'https://codingapple1.github.io/shop/shoes'+(a.id+1)+'.jpg'} width="80%" />
