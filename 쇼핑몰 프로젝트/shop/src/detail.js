@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Nav } from 'react-bootstrap';
 import styled from "styled-components";
 
 function Detail(props){
@@ -29,8 +30,18 @@ function Detail(props){
     )
 }
 function ShowDetail(props){
+  let [탭, 탭변경] =useState(0);
+  let [fade, setFade] = useState('')
+
+  useEffect(()=>{
+    setTimeout(() => { setFade('end') }, 100);
+    return()=>{
+      setFade('')
+    }
+  },[])
+
   return(
-    <>
+    <div className={"start "+fade}>
       <div className="container">
         { props.timeSet == true ? <TimeSale/> : null}
         <div className="row">
@@ -38,12 +49,10 @@ function ShowDetail(props){
             <img src={props.a.img} width="100%" />
           </div>
           <div className="col-md-6">
-            
             <input placeholder="수량을입력해주세요"
               onChange={(e)=>{props.입력값변경(e.target.value)
               console.log('입력값입니다.'+props.입력값);}}
             />
-
             <h4 className="pt-3">{props.a.title}</h4>
             <p>{props.a.content}</p>
             <p>{props.a.price}원</p>
@@ -51,8 +60,35 @@ function ShowDetail(props){
           </div>
         </div>
       </div> 
-    </>
+
+            <Nav variant="tabs" style={{margin:'50px'}}  defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link eventKey="link0" onClick={()=>{탭변경(0)}}>버튼0</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link1" onClick={()=>{탭변경(1)}}>버튼1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link2" onClick={()=>{탭변경(2)}}>버튼2</Nav.Link>
+          </Nav.Item>
+             </Nav>
+          <TabContent 탭={탭}/>
+    </div>
   )
+}
+function TabContent({탭}){
+  let [fade, setFade] = useState('')
+
+  useEffect(()=>{
+    setTimeout(() => { setFade('end') }, 100);
+    return()=>{
+      setFade('')
+    }
+  }, [탭])
+
+return (<div className={`start ${fade}`}>
+  {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+  </div>)
 }
 function TimeSale(props){
   return(
