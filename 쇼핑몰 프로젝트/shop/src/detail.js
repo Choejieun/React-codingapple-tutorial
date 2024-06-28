@@ -1,13 +1,15 @@
 /* eslint-disable */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
 import styled from "styled-components";
+import { Context1 } from "./App.js"; 
 
 function Detail(props){
 
   let [timeSet, setTimeSet] = useState(true);
   let [입력값, 입력값변경] = useState(0);
+  let {재고} = useContext(Context1)
 
   //타이머용
   useEffect(()=>{
@@ -72,12 +74,13 @@ function ShowDetail(props){
             <Nav.Link eventKey="link2" onClick={()=>{탭변경(2)}}>버튼2</Nav.Link>
           </Nav.Item>
              </Nav>
-          <TabContent 탭={탭}/>
+          <TabContent shoes={props.a} 탭={탭}/>
     </div>
   )
 }
-function TabContent({탭}){
+function TabContent({탭, shoes}){
   let [fade, setFade] = useState('')
+  let {재고} = useContext(Context1)
 
   useEffect(()=>{
     setTimeout(() => { setFade('end') }, 100);
@@ -87,7 +90,7 @@ function TabContent({탭}){
   }, [탭])
 
 return (<div className={`start ${fade}`}>
-  {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+  {[<div>{재고}</div>, <div>내용1</div>, <div>내용2</div>][탭]}
   </div>)
 }
 function TimeSale(props){

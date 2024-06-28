@@ -2,15 +2,18 @@
 // ^워링 업애주는 친구
 import './App.css';
 import { Navbar, Container, Nav, Row, Col  } from 'react-bootstrap';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import data from './data.js';
 import Detail from './detail.js';
 import ShoesList from './shoesList.js';
 import { Routes, Route, Link, useNavigate , Outlet } from 'react-router-dom';
 
+export let Context1 = createContext() // state 보관함
+
 function App() {
   let [shoes, setShoes] = useState(data)
   let navigate = useNavigate()
+  let [재고] = useState([10, 11, 12])
   return (
     <div className="App">
       <Navbar /*</div>bg="dark" data-bs-theme="dark" */className='navBarTop'>
@@ -25,7 +28,12 @@ function App() {
       </Navbar>
       <Routes>
       <Route path='/' element={<ShoesList shoes={shoes} setShoes={setShoes} />}/> 
-      <Route path='/detail/:id' element={<Detail shoes={shoes}/>}/>
+
+      <Route path='/detail/:id' element={
+        <Context1.Provider value={{재고}}>
+        <Detail shoes={shoes}/>
+        </Context1.Provider>
+        }/>
 
       <Route path="/about" element={ <About/> } >  
           <Route path="member" element={ <div>멤버들</div> } />
