@@ -5,8 +5,10 @@ import { Navbar, Container, Nav, Row, Col  } from 'react-bootstrap';
 import { createContext, useState } from 'react';
 import data from './data.js';
 import Detail from './detail.js';
+import Cart from './routes/Cart.js';
 import ShoesList from './shoesList.js';
 import { Routes, Route, Link, useNavigate , Outlet } from 'react-router-dom';
+
 
 export let Context1 = createContext() // state 보관함
 
@@ -34,6 +36,8 @@ function App() {
         <Detail shoes={shoes}/>
         </Context1.Provider>
         }/>
+
+      <Route path='/cart' element={<Cart/>}/>
 
       <Route path="/about" element={ <About/> } >  
           <Route path="member" element={ <div>멤버들</div> } />
