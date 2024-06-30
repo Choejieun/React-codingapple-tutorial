@@ -1,6 +1,11 @@
-import {Table} from 'react-bootstrap'
+import {Collapse, Table} from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 
 function Cart(){
+
+  let stock = useSelector((state)=> state.stock)
+  console.log(stock[0].id)
+
     return(
         <>
     <Table>
@@ -13,12 +18,14 @@ function Cart(){
     </tr>
   </thead>
   <tbody>
+    {stock.map((a, i)=>{
     <tr>
-      <td>1</td>
-      <td>안녕</td>
-      <td>안녕</td>
-      <td>안녕</td>
+      <td>{a.id}</td>
+      <td>{a.name}</td>
+      <td>{a.count}</td>
+      <td>{a.id}</td>
     </tr>
+    })}
   </tbody>
 </Table> 
         </>
