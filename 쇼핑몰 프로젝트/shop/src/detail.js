@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
 import styled from "styled-components";
 import { Context1 } from "./App.js"; 
+import { useDispatch, useSelector } from 'react-redux'
+import { addStockList } from "./store.js";
 
 function Detail(props){
 
@@ -34,6 +36,8 @@ function Detail(props){
 function ShowDetail(props){
   let [탭, 탭변경] =useState(0);
   let [fade, setFade] = useState('')
+  let stock = useSelector((state) => state.stock)
+  let dispatch = useDispatch()
 
   useEffect(()=>{
     setTimeout(() => { setFade('end') }, 100);
@@ -58,7 +62,8 @@ function ShowDetail(props){
             <h4 className="pt-3">{props.a.title}</h4>
             <p>{props.a.content}</p>
             <p>{props.a.price}원</p>
-            <button className="btn btn-danger">주문하기</button> 
+            <button className="btn btn-danger" onClick={()=>{
+            dispatch(addStockList(props.a))}}>주문하기</button> 
           </div>
         </div>
       </div> 

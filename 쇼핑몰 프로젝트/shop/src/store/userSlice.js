@@ -12,7 +12,6 @@ let user = createSlice({
         }
     }
  })
-
  export let {changeName, addAge } = user.actions
 //오른쪽 자료를 변수로 뺴는 문법일 뿐
 

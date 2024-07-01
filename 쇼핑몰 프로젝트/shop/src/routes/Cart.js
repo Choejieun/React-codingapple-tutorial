@@ -1,12 +1,14 @@
 import { Collapse, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeName, addAge } from '../store/userSlice'
+import { addStock } from '../store'
 
 function Cart() {
 
   let stock = useSelector((state) => state.stock)
   let state = useSelector((state) => state)
   let dispatch = useDispatch()
+  console.log(stock)
 
   return (
     <>
@@ -28,8 +30,7 @@ function Cart() {
               <td>{a.name}</td>
               <td>{a.count}</td>
               <td><button onClick={() => {
-                dispatch(changeName())
-              }}>+</button></td>
+              dispatch(addStock(a.id))}}>+</button></td>
             </tr>
           )}
         </tbody>
