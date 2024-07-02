@@ -2,17 +2,25 @@
 // ^워링 업애주는 친구
 import './App.css';
 import { Navbar, Container, Nav, Row, Col  } from 'react-bootstrap';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import data from './data.js';
 import Detail from './detail.js';
 import Cart from './routes/Cart.js';
 import ShoesList from './shoesList.js';
-import { Routes, Route, Link, useNavigate , Outlet } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate , Outlet, json } from 'react-router-dom';
 
 
 export let Context1 = createContext() // state 보관함
 
 function App() {
+
+useEffect(()=>{
+  let 꺼낸거 = localStorage.getItem('watched')
+  꺼낸거 = JSON.parse(꺼낸거)
+  꺼낸거 != null ? null : localStorage.setItem('watched', JSON.stringify([])
+  ,[])
+})
+
   let [shoes, setShoes] = useState(data)
   let navigate = useNavigate()
   let [재고] = useState([10, 11, 12])

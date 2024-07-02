@@ -39,6 +39,19 @@ function ShowDetail(props){
   let stock = useSelector((state) => state.stock)
   let dispatch = useDispatch()
 
+    
+  //로컬스토리지 방금 본 상품 업데이트
+  useEffect(()=>{
+    let 꺼낸거 = localStorage.getItem('watched')
+    꺼낸거 = JSON.parse(꺼낸거)
+    꺼낸거.push(props.a.id)
+    꺼낸거 = new Set(꺼낸거) // 중복검사
+    꺼낸거 = Array.from(꺼낸거) // 다시 array 변환
+    localStorage.setItem('watched', JSON.stringify(꺼낸거))
+  },[])
+
+
+
   useEffect(()=>{
     setTimeout(() => { setFade('end') }, 100);
     return()=>{

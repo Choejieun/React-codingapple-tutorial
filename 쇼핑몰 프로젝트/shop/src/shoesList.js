@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import bg from './img/bg.jpg';
 import { Navbar, Container, Nav, Row, Col  } from 'react-bootstrap';
-import { Routes, Route, Link, useNavigate , Outlet } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate , Outlet, json } from 'react-router-dom';
 import axios from 'axios'
 
 function ShoesList(props){
@@ -13,20 +13,15 @@ function ShoesList(props){
   let [modalOpen, setModalOpen] = useState(false);
 
   useEffect(()=>{
-    console.log(modalOpen)
     Promise.all([ axios.get('https://codingapple1.github.io/shop/data2.json'), axios.get('https://codingapple1.github.io/shop/data3.json')])
     .then((Re)=>{
-      console.log('ga')
       setModalOpen(false)
-      console.log(modalOpen)
       let copy = [...moreProduct]
       copy = [...copy, ...Re[0].data]
       copy = [...copy, ...Re[1].data]
       setMoreProduct(copy)
-      console.log(copy)
     })
     .catch(()=>{
-      console.log('실패함')
       setModalOpen(false);})
     return ()=>{setMoreProduct([])}
     },[showMoreListOn])
@@ -42,9 +37,9 @@ function ShoesList(props){
       }}>가나다순정렬</button >
       <Container>
       <Row>
-      {props.shoes.map(function(a) {
+      {props.shoes.map(function(a, i) {
         return (
-          <Col onClick={()=>{navigate('/detail/'+a.id)}} xs>
+          <Col key={i} onClick={()=>{navigate('/detail/'+a.id)}} xs>
           <img src={a.img} width="80%" />
           <h4>{a.title}</h4>
           <p>{a.content}</p>
