@@ -8,7 +8,8 @@ import Detail from './detail.js';
 import Cart from './routes/Cart.js';
 import ShoesList from './shoesList.js';
 import { Routes, Route, Link, useNavigate , Outlet, json } from 'react-router-dom';
-
+import axios from 'axios';
+import { useQuery } from 'react-query';
 
 export let Context1 = createContext() // state 보관함
 
@@ -24,6 +25,13 @@ useEffect(()=>{
   let [shoes, setShoes] = useState(data)
   let navigate = useNavigate()
   let [재고] = useState([10, 11, 12])
+
+  let result = useQuery('작명', ()=>{
+   return axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
+    return  a.data
+    })
+  })
+
   return (
     <div className="App">
       <Navbar /*</div>bg="dark" data-bs-theme="dark" */className='navBarTop'>
@@ -34,6 +42,9 @@ useEffect(()=>{
             <Nav.Link onClick={()=>{navigate('/')}}>홈</Nav.Link>
             <Nav.Link onClick={()=>{navigate('/detail')}}>상세페이지</Nav.Link>
             <Nav.Link onClick={()=>{navigate('/cart')}}>장바구니</Nav.Link>
+          </Nav>
+          <Nav className="me-auto">
+            {result.isLoading ? '로딩중' : result.data.name}
           </Nav>
         </Container>
       </Navbar>
