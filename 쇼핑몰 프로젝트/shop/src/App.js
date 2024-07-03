@@ -29,8 +29,7 @@ useEffect(()=>{
   let result = useQuery('작명', ()=>{
    return axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
     return  a.data
-    })
-  })
+    })},{staleTime : 2000}) //재요청 시간 제한
 
   return (
     <div className="App">
